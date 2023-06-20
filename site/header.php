@@ -39,7 +39,7 @@
 
 
                     <?php
-                    if (isset($_SESSION['kh'])) {
+                    if (isset($_SESSION['kh']) && $_SESSION['kh']['vai_tro'] == 1) {
 
                         echo '
                         <!-- Center elements -->
@@ -66,6 +66,40 @@
                               </li>
                               <li>
                                 <a href="admin/index.php" class="dropdown-item" href="#">Admin</a>
+                              </li>
+                              <li><hr class="dropdown-divider" /></li>
+                              <li>
+                                <a href="index.php?act=thoat" class="dropdown-item" href="#">Logout</a>
+                              </li>
+                            </ul>
+                          </div>
+    
+                            </div>
+                        </div>
+                        <!-- Center elements -->';
+                    } elseif (isset($_SESSION['kh']) && $_SESSION['kh']['vai_tro'] == 0) {
+                        echo '
+                        <!-- Center elements -->
+                        <div class="order-lg-last col-lg-5 col-sm-8 col-8">
+                            <div class="d-flex float-end">
+                            <div class="nav-item dropdown">
+                            <a
+                              class="nav-link dropdown-toggle text-dark mb-0 border px-3 py-2"
+                              href="#"
+                              id="navbarDropdown"
+                              role="button"
+                              data-mdb-toggle="dropdown"
+                              aria-expanded="false"
+                            >
+                              Settings
+                            </a>
+                            <!-- Dropdown menu -->
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <li>
+                                <a href="index.php?act=capnhattk" class="dropdown-item" href="#">Profile</a>
+                              </li>
+                              <li>
+                                <a href="index.php?act=quenmk" class="dropdown-item" href="#">Quên mật khẩu</a>
                               </li>
                               <li><hr class="dropdown-divider" /></li>
                               <li>
@@ -121,15 +155,15 @@
 
                     <!-- Right elements -->
                     <div class="col-lg-5 col-md-12 col-12">
-                        <div class="input-group float-center">
+                        <form class="input-group float-center" method="post" action="index.php">
                             <div class="form-outline">
-                                <input type="search" id="form1" class="form-control" />
+                                <input type="search" id="form1" class="form-control" name="keyword" />
                                 <label class="form-label" for="form1">Search</label>
                             </div>
-                            <button type="button" class="btn btn-primary shadow-0">
+                            <button type="submit" class="btn btn-primary shadow-0" name="keysearch">
                                 <i class="fas fa-search"></i>
                             </button>
-                        </div>
+                        </form>
                     </div>
                     <!-- Right elements -->
                 </div>
