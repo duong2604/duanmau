@@ -11,6 +11,7 @@ include "site/header.php";
 $getLoais = loai_select_all();
 $getHangHoaHomepage = get_hang_hoa_homepage();
 $topHangHoa = hang_hoa_select_top4();
+
 if (isset($_GET['act']) && $_GET['act'] != "") {
     $act =  $_GET['act'];
 

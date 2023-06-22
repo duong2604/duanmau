@@ -131,27 +131,7 @@
                         </div>
                         <!-- Center elements -->';
                     }
-
-
-
                     ?>
-
-
-                    <!-- Center elements -->
-                    <!-- <div class="order-lg-last col-lg-5 col-sm-8 col-8">
-                        <div class="d-flex float-end">
-                            <a href="index.php?act=dangnhap" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank">
-                                <i class="fas fa-user-alt m-1 me-md-2"></i>
-                                <p class="d-none d-md-block mb-0">Settings</p>
-                            </a>
-                            <a href="index.php?act=dangky" class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center" target="_blank">
-                                <i class="fas fa-heart m-1 me-md-2"></i>
-                                <p class="d-none d-md-block mb-0">Admin</p>
-                            </a>
-
-                        </div>
-                    </div> -->
-                    <!-- Center elements -->
 
                     <!-- Right elements -->
                     <div class="col-lg-5 col-md-12 col-12">
