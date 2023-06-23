@@ -9,8 +9,14 @@ include "dao/binh-luan.php";
 include "site/header.php";
 
 $getLoais = loai_select_all();
-$getHangHoaHomepage = get_hang_hoa_homepage();
 $topHangHoa = hang_hoa_select_top4();
+// $getHangHoaHomepage = get_hang_hoa_homepage();
+
+
+$per_page = !empty($_GET['per_page']) ? $_GET['per_page'] : 8;
+$page = !empty($_GET['page']) ? $_GET['page'] : 1;
+$getHangHoaHomepage = hang_hoa_paginate($per_page, $page);
+
 
 if (isset($_GET['act']) && $_GET['act'] != "") {
     $act =  $_GET['act'];
@@ -23,6 +29,7 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 $ma_loai = $_GET['iddm'];
                 $getOneLoai = loai_select_by_id($ma_loai);
                 extract($getOneLoai);
+                // $listHangHoaTheoLoai = hang_hoa_select_by_loai($ma_loai);
                 $listHangHoaTheoLoai = hang_hoa_select_by_loai($ma_loai);
             }
             include "site/sanpham.php";

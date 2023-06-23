@@ -99,23 +99,43 @@ function get_hh_theo_key($key, $ma_loai)
     }
 }
 
-// function hang_hoa_select_page(){
-//     if(!isset($_SESSION['page_no'])){
-//         $_SESSION['page_no'] = 0;
-//     }
-//     if(!isset($_SESSION['page_count'])){
-//         $row_count = pdo_query_value("SELECT count(*) FROM hang_hoa");
-//         $_SESSION['page_count'] = ceil($row_count/10.0);
-//     }
-//     if(exist_param("page_no")){
-//         $_SESSION['page_no'] = $_REQUEST['page_no'];
-//     }
-//     if($_SESSION['page_no'] < 0){
-//         $_SESSION['page_no'] = $_SESSION['page_count'] - 1;
-//     }
-//     if($_SESSION['page_no'] >= $_SESSION['page_count']){
-//         $_SESSION['page_no'] = 0;
-//     }
-//     $sql = "SELECT * FROM hang_hoa ORDER BY ma_hh LIMIT ".$_SESSION['page_no'].", 10";
-//     return pdo_query($sql);
-// }
+
+function tong_so_page($per_page)
+{
+    $items_per_page = $per_page;
+    $row_count = pdo_query_value("SELECT count(*) FROM hang_hoa");
+    $page = ceil((int)$row_count / $items_per_page);
+    return $page;
+}
+
+
+function hang_hoa_paginate($per_page, $page)
+{
+    $items_per_page =  $per_page;
+    $current_page = $page;
+    $offset = ($current_page - 1) * $items_per_page;
+    $sql = "SELECT * FROM hang_hoa ORDER BY ma_hh LIMIT " . $items_per_page . " OFFSET " . $offset;
+    return pdo_query($sql);
+}
+
+function hang_hoa_select_page()
+{
+    if (!isset($_SESSION['page_no'])) {
+        $_SESSION['page_no'] = 0;
+    }
+    if (!isset($_SESSION['page_count'])) {
+        $row_count = pdo_query_value("SELECT count(*) FROM hang_hoa");
+        $_SESSION['page_count'] = ceil((int)$row_count / 10.0);
+    }
+    if (!$_SESSION['page_no']) {
+        $_SESSION['page_no'] = $_REQUEST['page_no'];
+    }
+    if ($_SESSION['page_no'] < 0) {
+        $_SESSION['page_no'] = $_SESSION['page_count'] - 1;
+    }
+    if ($_SESSION['page_no'] >= $_SESSION['page_count']) {
+        $_SESSION['page_no'] = 0;
+    }
+    $sql = "SELECT * FROM hang_hoa ORDER BY ma_hh LIMIT " . $_SESSION['page_no'] . ", 10";
+    return pdo_query($sql);
+}

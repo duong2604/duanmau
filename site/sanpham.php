@@ -230,6 +230,70 @@
 
                 <hr />
 
+
+
+
+
+
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
+                    <ul class="pagination">
+
+
+
+                        <?php
+                        $totalPage = tong_so_page($per_page);
+
+
+
+                        if ($page > 1) {
+                            $pre_page = $page - 1;
+                            echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $pre_page . '">' . '<< Pre' . '</a></li>';
+                        }
+
+
+                        if ($page > 3) {
+                            $first_page = 1;
+                            echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $first_page . '">' . 'First' . '</a></li>';
+                        }
+
+
+
+                        for ($num = 1; $num <= $totalPage; $num++) {
+                            if ($num != $page) {
+                                if ($num > $page - 2 && $num < $page + 2) {
+                                    echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $num . '">' . $num . '</a></li>';
+                                }
+                            } else {
+                                echo '<strong class="page-item border bg-primary text-white"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $num . '">' . $num . '</a></strong>';
+                            }
+                        }
+
+                        if ($page < 3) {
+                            $last_page = $totalPage;
+                            echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $last_page . '">' . 'Last' . '</a></li>';
+                        }
+
+
+                        if ($page < $totalPage - 1) {
+                            $next_page = $page + 1;
+                            echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $next_page . '">' . 'Next >>' . '</a></li>';
+                        }
+
+
+
+                        ?>
+
+
+
+
+
+
+                    </ul>
+                </nav>
+                <!-- Pagination -->
+
                 <!-- Pagination -->
                 <!-- <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
                     <ul class="pagination">
