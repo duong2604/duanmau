@@ -140,9 +140,9 @@
                                 <input type="search" id="form1" class="form-control" name="keyword" />
                                 <label class="form-label" for="form1">Search</label>
                             </div>
-                            <button type="submit" class="btn btn-primary shadow-0" name="keysearch">
-                                <i class="fas fa-search"></i>
-                            </button>
+
+                            <input type="submit" value="Search" name="search" class="btn btn-primary shadow-0">
+
                         </form>
                     </div>
                     <!-- Right elements -->

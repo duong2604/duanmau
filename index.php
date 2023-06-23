@@ -12,10 +12,16 @@ $getLoais = loai_select_all();
 $topHangHoa = hang_hoa_select_top4();
 // $getHangHoaHomepage = get_hang_hoa_homepage();
 
+if (isset($_POST['search']) && $_POST['search']) {
+    $keyword = $_POST['keyword'];
+    $getHangHoaHomepage = hang_hoa_select_keyword($keyword);
+} else {
+    $per_page = !empty($_GET['per_page']) ? $_GET['per_page'] : 8;
+    $page = !empty($_GET['page']) ? $_GET['page'] : 1;
+    $getHangHoaHomepage = hang_hoa_paginate($per_page, $page);
+}
 
-$per_page = !empty($_GET['per_page']) ? $_GET['per_page'] : 8;
-$page = !empty($_GET['page']) ? $_GET['page'] : 1;
-$getHangHoaHomepage = hang_hoa_paginate($per_page, $page);
+
 
 
 if (isset($_GET['act']) && $_GET['act'] != "") {
