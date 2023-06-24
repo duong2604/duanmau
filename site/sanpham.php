@@ -20,14 +20,19 @@
                             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
                                 <div class="accordion-body">
                                     <ul class="list-unstyled">
-                                        <li><a href="#" class="text-dark">Electronics </a></li>
-                                        <li><a href="#" class="text-dark">Home items </a></li>
-                                        <li><a href="#" class="text-dark">Books, Magazines </a></li>
-                                        <li><a href="#" class="text-dark">Men's clothing </a></li>
-                                        <li><a href="#" class="text-dark">Interiors items </a></li>
-                                        <li><a href="#" class="text-dark">Underwears </a></li>
-                                        <li><a href="#" class="text-dark">Shoes for men </a></li>
-                                        <li><a href="#" class="text-dark">Accessories </a></li>
+
+
+
+                                        <?php
+                                        foreach ($list_loai_by_name as $loai) {
+                                            extract($loai);
+                                            $link_list_sp = "index.php?act=sanpham&iddm=" . $ma_loai;
+                                            echo '<li><a class="text-black" href="' . $link_list_sp . '">' . $ten_loai . '</a></li> <hr>';
+                                        }
+
+                                        ?>
+
+
                                     </ul>
                                 </div>
                             </div>
@@ -185,12 +190,11 @@
             <!-- content -->
             <div class="col-lg-9">
                 <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
-                    <strong class="d-block py-2"> Loại hàng: <?= $ten_loai ?></strong>
                     <div class="ms-auto">
                         <form action="index.php?act=sanpham" method="post" class="d-flex justify-content-center align-items-center gap-2 mt-4">
-                            <input type="hidden" name="ma_hh" value="<?= $ma_loai ?>">
-                            <input type="text" placeholder="Tìm kiếm nhanh..." class="form-control" name="key">
-                            <input type="submit" class="btn btn-primary" value="Search" name="search">
+                            <input type="hidden" name="ma_loai" value="<?= $ma_loai ?>">
+                            <input type="text" placeholder="Tìm kiếm nhanh..." class="form-control" name="keyword">
+                            <input type="submit" class="btn btn-primary" value="Search" name="searchLoai">
                         </form>
                     </div>
                 </header>
@@ -243,42 +247,43 @@
 
 
                         <?php
-                        $totalPage = tong_so_page($per_page);
+                        $totalPage =  tong_so_sanpham_page($per_page, $ma_loai);
 
 
-
-                        if ($page > 1) {
-                            $pre_page = $page - 1;
-                            echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $pre_page . '">' . '<< Pre' . '</a></li>';
-                        }
-
-
-                        if ($page > 3) {
-                            $first_page = 1;
-                            echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $first_page . '">' . 'First' . '</a></li>';
-                        }
-
-
-
-                        for ($num = 1; $num <= $totalPage; $num++) {
-                            if ($num != $page) {
-                                if ($num > $page - 2 && $num < $page + 2) {
-                                    echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $num . '">' . $num . '</a></li>';
-                                }
-                            } else {
-                                echo '<strong class="page-item border bg-primary text-white"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $num . '">' . $num . '</a></strong>';
+                        if ($totalPage > 1) {
+                            if ($page > 1) {
+                                $pre_page = $page - 1;
+                                echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $pre_page . '">' . '<< Pre' . '</a></li>';
                             }
-                        }
-
-                        if ($page < 3) {
-                            $last_page = $totalPage;
-                            echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $last_page . '">' . 'Last' . '</a></li>';
-                        }
 
 
-                        if ($page < $totalPage - 1) {
-                            $next_page = $page + 1;
-                            echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $next_page . '">' . 'Next >>' . '</a></li>';
+                            if ($page > 3) {
+                                $first_page = 1;
+                                echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $first_page . '">' . 'First' . '</a></li>';
+                            }
+
+
+
+                            for ($num = 1; $num <= $totalPage; $num++) {
+                                if ($num != $page) {
+                                    if ($num > $page - 2 && $num < $page + 2) {
+                                        echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $num . '">' . $num . '</a></li>';
+                                    }
+                                } else {
+                                    echo '<strong class="page-item border bg-primary text-white"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $num . '">' . $num . '</a></strong>';
+                                }
+                            }
+
+                            if ($page < 3) {
+                                $last_page = $totalPage;
+                                echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $last_page . '">' . 'Last' . '</a></li>';
+                            }
+
+
+                            if ($page < $totalPage - 1) {
+                                $next_page = $page + 1;
+                                echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $next_page . '">' . 'Next >>' . '</a></li>';
+                            }
                         }
 
 
@@ -286,35 +291,9 @@
                         ?>
 
 
-
-
-
-
                     </ul>
                 </nav>
-                <!-- Pagination -->
 
-                <!-- Pagination -->
-                <!-- <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav> -->
-                <!-- Pagination -->
             </div>
         </div>
     </div>

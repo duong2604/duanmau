@@ -85,6 +85,13 @@ function hang_hoa_select_keyword($keyword)
         . " WHERE ten_hh LIKE ? OR ten_loai LIKE ?";
     return pdo_query($sql, '%' . $keyword . '%', '%' . $keyword . '%');
 }
+function hang_hoa_select_loai_keyword($keyword, $ma_loai)
+{
+    $sql = "SELECT * FROM hang_hoa hh "
+        . " JOIN loai lo ON lo.ma_loai=hh.ma_loai "
+        . " WHERE ten_hh LIKE ? and ma_loai= ?" . $ma_loai;
+    return pdo_query($sql, '%' . $keyword . '%');
+}
 
 
 function get_hh_theo_key($key, $ma_loai)
@@ -108,6 +115,14 @@ function tong_so_page($per_page)
     return $page;
 }
 
+function tong_so_sanpham_page($per_page, $ma_loai)
+{
+    $items_per_page = $per_page;
+    $row_count = pdo_query_value("SELECT count(*) FROM hang_hoa WHERE ma_loai=" . $ma_loai);
+    $page = ceil((int)$row_count / $items_per_page);
+    return $page;
+}
+
 
 function hang_hoa_paginate($per_page, $page)
 {
@@ -116,6 +131,15 @@ function hang_hoa_paginate($per_page, $page)
     $offset = ($current_page - 1) * $items_per_page;
     $sql = "SELECT * FROM hang_hoa ORDER BY ma_hh LIMIT " . $items_per_page . " OFFSET " . $offset;
     return pdo_query($sql);
+}
+
+function hang_hoa_by_loai_paginate($per_page, $page, $ma_loai)
+{
+    $items_per_page =  $per_page;
+    $current_page = $page;
+    $offset = ($current_page - 1) * $items_per_page;
+    $sql = "SELECT * FROM hang_hoa WHERE ma_loai=? ORDER BY ma_hh LIMIT " . $items_per_page . " OFFSET " . $offset;
+    return pdo_query($sql, $ma_loai);
 }
 
 function hang_hoa_select_page()

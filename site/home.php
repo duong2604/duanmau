@@ -192,7 +192,7 @@
 
                 for ($num = 1; $num <= $totalPage; $num++) {
                     if ($num != $page) {
-                        if ($num > $page - 2 && $num < $page + 2) {
+                        if ($num > $page - 3 && $num < $page + 3) {
                             echo ' <li class="page-item border"><a class="page-link" href="?per_page=' . $per_page . '&page=' . $num . '">' . $num . '</a></li>';
                         }
                     } else {

@@ -35,8 +35,17 @@ if (isset($_GET['act']) && $_GET['act'] != "") {
                 $ma_loai = $_GET['iddm'];
                 $getOneLoai = loai_select_by_id($ma_loai);
                 extract($getOneLoai);
+
+                $per_page = !empty($_GET['per_page']) ? $_GET['per_page'] : 6;
+                $page = !empty($_GET['page']) ? $_GET['page'] : 1;
+                $listHangHoaTheoLoai = hang_hoa_by_loai_paginate($per_page, $page, $ma_loai);
+
+
+
+
                 // $listHangHoaTheoLoai = hang_hoa_select_by_loai($ma_loai);
-                $listHangHoaTheoLoai = hang_hoa_select_by_loai($ma_loai);
+
+                $list_loai_by_name = loai_select_all();
             }
             include "site/sanpham.php";
             break;
